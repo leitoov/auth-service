@@ -52,6 +52,17 @@ JWT_EXPIRATION_MS=<EXPIRATION_TIME_MS>
 
 ---
 
+## Endpoints Principales
+
+1. **POST `/api/v1/auth/login`**
+   - Público. Valida email y password y retorna un JWT y expiración.
+2. **POST `/api/v1/auth/register-business`**
+   - Público. Endpoint de Onboarding. Crea una empresa (`Tenant`) y al usuario Dueño simultáneamente.
+3. **POST `/api/v1/auth/register-employee`**
+   - Privado (Requiere `Authorization: Bearer <token_admin>`). Crea un empleado/sub-usuario y lo asocia automáticamente a la empresa de quien ejecuta la petición.
+
+---
+
 ## Prueba Rápida (Login)
 
 Ejemplo de flujo principal de autenticación:

@@ -30,4 +30,18 @@ public class UserRepositoryAdapter implements UserRepository {
             return user;
         });
     }
+
+    @Override
+    public User save(User user) {
+        UserEntity entity = new UserEntity();
+        entity.setId(user.getId());
+        entity.setEmail(user.getEmail());
+        entity.setPassword(user.getPassword());
+        entity.setRole(user.getRole());
+        entity.setStatus(user.getStatus());
+        entity.setTenantId(user.getTenantId());
+        
+        entity = jpaRepository.save(entity);
+        return user;
+    }
 }
