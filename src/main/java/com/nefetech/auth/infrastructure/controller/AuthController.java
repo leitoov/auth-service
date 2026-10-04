@@ -14,10 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@Tag(name = "Authentication", description = "Endpoints para inicio de sesión y registro de negocios/empleados")
 public class AuthController {
 
     private final LoginUseCase loginUseCase;
@@ -32,6 +36,7 @@ public class AuthController {
         this.tokenValidator = tokenValidator;
     }
 
+    @Operation(summary = "Iniciar sesión", description = "Valida las credenciales del usuario y devuelve un token JWT.")
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
         try {
@@ -45,6 +50,7 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "Registrar negocio", description = "Crea un nuevo negocio (Tenant) y su usuario administrador principal. Devuelve un JWT.")
     @PostMapping("/register-business")
     public ResponseEntity<?> registerBusiness(@Valid @RequestBody RegisterBusinessRequest request) {
         try {
@@ -56,6 +62,7 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "Registrar empleado", description = "Permite a un administrador registrar a un nuevo empleado dentro de su propio negocio.")
     @PostMapping("/register-employee")
     public ResponseEntity<?> registerEmployee(
             @RequestHeader(value = "Authorization", required = false) String authHeader,
